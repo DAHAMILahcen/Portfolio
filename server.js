@@ -1,14 +1,23 @@
- //requirement
+ //requirements
 const exppress = require('express')
 const mongo = require('mongoose')
 const Port = 3000 
+const urldb="mongodb://localhost:27017/protfolio"
 //intaite my website :
 const website = exppress()
-// ser the engine :
+// set the engine :
 website.set('view engine','ejs')
 //acces to static files 
 website.use(exppress.static('public'))
-website.listen( Port || 3001 , () =>  { console.log(`i ma lestning on the port ${Port}`)})
+// lestenning and connecting to our database :
+mongo.connect(urldb ).then(
+  ( )=>{
+    website.listen( Port , () =>  { console.log(`i ma lestning on the port ${Port}`)})
+    console.log(" i am connecteb to database :)")
+
+  }
+).catch((err) => {
+  console.log('Error connecting to MongoDB:', err)});
 
 //home redendering 
  website.get('/' , (req , res )=>{
