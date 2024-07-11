@@ -1,12 +1,15 @@
  //requirements
 const exppress = require('express')
 const mongo = require('mongoose')
+const bodyparser =require("body-parser")
+const client=  require('./modelsdb/client.js')
 const Port = 3000 
 const urldb="mongodb://localhost:27017/protfolio"
 //intaite my website :
 const website = exppress()
 // set the engine :
 website.set('view engine','ejs')
+website.use(bodyparser.urlencoded({extended : false}))
 //acces to static files 
 website.use(exppress.static('public'))
 // lestenning and connecting to our database :
@@ -41,7 +44,7 @@ website.get('/Contact-us' , (req ,res)=>{
   res.render('contact' , { title: "Contact-us"})
 })
 website.post('/Contact-us' , ( req ,res)=>{
-
+      
 })
 //page erreur sending 
 website.use((req , res , next) =>{
